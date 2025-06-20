@@ -1,17 +1,25 @@
 const mensagens = [
   "Você é a melhor parte da minha vida. ❤️",
-  "Cada sorriso seu é um presente pra mim.",
-  "Nossa jornada só está começando.",
-  "Te amo mais a cada segundo. 🌹",
-  "Com você, todos os dias têm brilho. 💕"
+  "Cada elogio teu me esquenta o coração",
+  "Quero construir uma familia com vc, florzinha",
+  "Eu te amo mais a cada segundo. 🌹",
+  "Com você, todos os dias têm brilho. 💕",
+  "Eu sempre vou estar ao seu lado em todas as situações",
+  "Cada gargalhada tua me contagia <3",
+  "A distância é minha inimiga, eu amo ficar do teu ladinho",
+  "Penso em ti o dia inteiro, vidoca",
 ];
 
 const slides = [
-  { type: 'img', src: 'img/foto6.jpg.webp', legenda: 'Nosso primeiro passeio juntos ❤️' },
-  { type: 'video', src: 'videos.mp4/video3.mp4', legenda: 'Esse foi um dia especial pra nós.' },
-  { type: 'img', src: 'img/foto3.jpg.webp', legenda: 'Lembranças que guardo no coração.' },
-  { type: 'video', src: 'videos.mp4/video2.mp4', legenda: 'Relembrando momentos únicos. 🥰' },
-  { type: 'img', src: 'img/foto4.jpg.webp', legenda: 'Só começo da nossa história.' }
+  { type: 'img', src: 'img/foto6.jpg.webp', legenda: 'Cada fotinha é uma lembrança de felicidade ❤️' },
+  { type: 'video', src: 'videos.mp4/video3.mp4', legenda: 'Teu sorriso me alegra nesses dias escuros' },
+  { type: 'img', src: 'img/foto3.jpg.webp', legenda: 'Eu aproveito cada momento do teu ladinho' },
+  { type: 'video', src: 'videos.mp4/video2.mp4', legenda: 'Sempre vou te amar com todas as minhas forças 🥰' },
+  { type: 'img', src: 'img/foto4.jpg.webp', legenda: 'A tua beleza sempre me encanta, e todo dia eu me apaixono mais por ti' },
+  { type: 'img', src: 'img/foto5.jpg.webp', legenda: 'Fiz isso com carinho pra vc, meu bem' },
+  { type: 'img', src: 'img/foto7.jpg.webp', legenda: 'Essa foto ficou lindona ó' },
+  { type: 'img', src: 'img/foto8.webp', legenda: 'Eu já disse que te amo? Eu te amo, vidoca' },
+  { type: 'img', src: 'img/final.webp', legenda: 'Esse é meu presente pra vc, paixão' },
 ];
 
 const slideContainer = document.getElementById('slide-container');
@@ -21,10 +29,6 @@ const mensagemElement = document.getElementById('mensagem');
 let slideAtual = 0;
 let mensagemAtual = 0;
 let slideInterval = null;
-
-// Variáveis para swipe
-let startX = 0;
-let isHovering = false;
 
 function criarSlides() {
   slides.forEach(item => {
@@ -49,46 +53,47 @@ function criarSlides() {
   atualizarSlide();
 }
 
+function typeWriter(text, element, delay = 50) {
+  element.textContent = "";
+  let i = 0;
+  function typing() {
+    if (i < text.length) {
+      element.textContent += text.charAt(i);
+      i++;
+      setTimeout(typing, delay);
+    }
+  }
+  typing();
+}
+
 function atualizarSlide() {
   const offset = -(slideAtual * 100);
   slideContainer.style.transform = `translateX(${offset}%)`;
   legenda.textContent = slides[slideAtual].legenda;
 
   mensagemAtual = (mensagemAtual + 1) % mensagens.length;
-  mensagemElement.textContent = mensagens[mensagemAtual];
+  typeWriter(mensagens[mensagemAtual], mensagemElement);
 
-  // Limpa o intervalo antigo antes de criar outro
-  if (slideInterval) {
-    clearInterval(slideInterval);
-  }
+  Array.from(slideContainer.children).forEach((slide, idx) => {
+    slide.classList.toggle('active', idx === slideAtual);
+  });
 
+  if (slideInterval) clearInterval(slideInterval);
   const slideAtualElemento = slideContainer.children[slideAtual];
   const video = slideAtualElemento.querySelector('video');
 
   if (video) {
     video.currentTime = 0;
     video.play();
-
-    video.onended = () => {
-      if (!isHovering) iniciarAutoSlide();
-    };
+    video.onended = () => iniciarAutoSlide();
   } else {
-    if (!isHovering) iniciarAutoSlide();
+    iniciarAutoSlide();
   }
 }
 
 function iniciarAutoSlide() {
   if (slideInterval) clearInterval(slideInterval);
-  slideInterval = setInterval(() => {
-    mudarSlide(1);
-  }, 7000);
-}
-
-function pararAutoSlide() {
-  if (slideInterval) {
-    clearInterval(slideInterval);
-    slideInterval = null;
-  }
+  slideInterval = setInterval(() => mudarSlide(1), 7000);
 }
 
 function mudarSlide(direcao) {
@@ -96,68 +101,53 @@ function mudarSlide(direcao) {
   atualizarSlide();
 }
 
-// Eventos para swipe mobile
-slideContainer.addEventListener('touchstart', e => {
-  startX = e.touches[0].clientX;
-  pararAutoSlide();
-});
-
-slideContainer.addEventListener('touchend', e => {
-  const endX = e.changedTouches[0].clientX;
-  const diff = startX - endX;
-
-  if (Math.abs(diff) > 50) {
-    if (diff > 0) mudarSlide(1);
-    else mudarSlide(-1);
-  }
-  iniciarAutoSlide();
-});
-
-// Pausar autoplay no hover desktop
-slideContainer.addEventListener('mouseenter', () => {
-  isHovering = true;
-  pararAutoSlide();
-
-  // Pause vídeo se houver
-  const slideAtualElemento = slideContainer.children[slideAtual];
-  const video = slideAtualElemento.querySelector('video');
-  if (video) video.pause();
-});
-
-slideContainer.addEventListener('mouseleave', () => {
-  isHovering = false;
-
-  // Recomeça autoplay
-  iniciarAutoSlide();
-
-  // Resume vídeo se houver
-  const slideAtualElemento = slideContainer.children[slideAtual];
-  const video = slideAtualElemento.querySelector('video');
-  if (video) video.play();
-});
-
-// Navegação por teclado
-document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowLeft') {
-    pararAutoSlide();
-    mudarSlide(-1);
-  } else if (e.key === 'ArrowRight') {
-    pararAutoSlide();
-    mudarSlide(1);
-  }
-});
-
-// Corações animados
 function criarCoração() {
   const coração = document.createElement('div');
   coração.classList.add('coração');
   coração.style.left = Math.random() * 100 + "vw";
-  coração.style.fontSize = (Math.random() * 20 + 10) + "px";
+  coração.style.fontSize = (Math.random() * 25 + 10) + "px";
+  coração.style.animationDuration = (Math.random() * 4 + 3) + "s";
   coração.textContent = "❤";
   document.getElementById('corações').appendChild(coração);
-  setTimeout(() => coração.remove(), 5000);
+  setTimeout(() => coração.remove(), 7000);
 }
 
-criarSlides();
-setInterval(criarCoração, 300);
-iniciarAutoSlide();
+document.getElementById('btnCurtir').addEventListener('click', (e) => {
+  const coração = document.createElement('div');
+  coração.textContent = '❤️';
+  coração.className = 'coração-explode';
+  coração.style.left = e.clientX + 'px';
+  coração.style.top = e.clientY + 'px';
+  document.body.appendChild(coração);
+  setTimeout(() => coração.remove(), 700);
+});
+
+// Contador regressivo para 12 de agosto de 2025 00:00:00
+function iniciarContador() {
+  const tempoElemento = document.getElementById('tempo');
+  const dataFinal = new Date(2025, 7, 12, 0, 0, 0); // agosto é mês 7 no JS
+
+  const intervalo = setInterval(() => {
+    const agora = new Date();
+    const tempoRestante = dataFinal - agora;
+
+    if (tempoRestante <= 0) {
+      clearInterval(intervalo);
+      tempoElemento.textContent = 'Chegou o momento! ❤️';
+      document.getElementById('contador').style.display = 'none';
+      document.getElementById('presente').style.display = 'block';
+      criarSlides();
+      setInterval(criarCoração, 300);
+      iniciarAutoSlide();
+    } else {
+      const dias = Math.floor(tempoRestante / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((tempoRestante / (1000 * 60 * 60)) % 24);
+      const minutos = Math.floor((tempoRestante / (1000 * 60)) % 60);
+      const segundos = Math.floor((tempoRestante / 1000) % 60);
+
+      tempoElemento.textContent = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+    }
+  }, 1000);
+}
+
+iniciarContador();

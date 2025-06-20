@@ -3,22 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Presente de Namoro</title>
+  <title>Nosso Presente</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <div class="container">
-    <h1>Feliz Aniversário de Namoro! ❤️</h1>
-    <div id="mensagem" class="mensagem">Você é a melhor parte da minha vida. ❤️</div>
+  <!-- Contador regressivo -->
+  <div id="contador" class="contador">
+    <h2>Preparando uma surpresa para você...</h2>
+    <div id="tempo" class="tempo">00d 00h 00m 00s</div>
+    <p>para a surpresa ser revelada! ❤️</p>
+  </div>
+
+  <!-- Conteúdo do presente -->
+  <div id="presente" class="container" style="display: none;">
+    <h1>Feliz 4 anos de namoro meu amorzinho</h1>
+    <div id="mensagem" class="mensagem"></div>
 
     <div class="slide-wrapper">
       <div id="slide-container" class="slide-container"></div>
-      <button class="nav prev" onclick="mudarSlide(-1)">&#10094;</button>
-      <button class="nav next" onclick="mudarSlide(1)">&#10095;</button>
+      <button class="nav prev" onclick="mudarSlide(-1)">‹</button>
+      <button class="nav next" onclick="mudarSlide(1)">›</button>
     </div>
 
     <div id="legenda" class="legenda"></div>
+
+    <button id="btnCurtir" title="Curtir">❤️ Curtir</button>
   </div>
 
   <div id="corações" class="corações"></div>
