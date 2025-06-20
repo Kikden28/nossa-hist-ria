@@ -123,31 +123,50 @@ document.getElementById('btnCurtir').addEventListener('click', (e) => {
 });
 
 // Contador regressivo para 12 de agosto de 2025 00:00:00
-function iniciarContador() {
-  const tempoElemento = document.getElementById('tempo');
-  const dataFinal = new Date(2025, 7, 12, 0, 0, 0); // agosto é mês 7 no JS
+// ... seu código existente aqui (slides, mensagens, etc)
 
-  const intervalo = setInterval(() => {
-    const agora = new Date();
-    const tempoRestante = dataFinal - agora;
+// Contador regressivo
+const dataAlvo = new Date("2025-08-12T00:00:00").getTime();
 
-    if (tempoRestante <= 0) {
-      clearInterval(intervalo);
-      tempoElemento.textContent = 'Chegou o momento! ❤️';
-      document.getElementById('contador').style.display = 'none';
-      document.getElementById('presente').style.display = 'block';
-      criarSlides();
-      setInterval(criarCoração, 300);
-      iniciarAutoSlide();
-    } else {
-      const dias = Math.floor(tempoRestante / (1000 * 60 * 60 * 24));
-      const horas = Math.floor((tempoRestante / (1000 * 60 * 60)) % 24);
-      const minutos = Math.floor((tempoRestante / (1000 * 60)) % 60);
-      const segundos = Math.floor((tempoRestante / 1000) % 60);
+function atualizarContador() {
+  const agora = new Date().getTime();
+  const distancia = dataAlvo - agora;
 
-      tempoElemento.textContent = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
-    }
-  }, 1000);
+  const contadorEl = document.getElementById("contador");
+  const contadorWrapper = document.querySelector(".contador-wrapper");
+  const presenteContainer = document.getElementById("presente-container");
+
+  if (distancia <= 0) {
+    // Quando zerar, esconde o contador e mostra o presente
+    contadorWrapper.classList.add("hidden");
+    presenteContainer.classList.remove("hidden");
+
+    // Inicia o presente (slides, corações etc)
+    criarSlides();
+    setInterval(criarCoração, 300);
+    iniciarAutoSlide();
+
+    return; // para não ficar chamando o setTimeout do contador
+  }
+
+  const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+  const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+  const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+  contadorEl.innerHTML = `
+    <span>${dias}d</span> : 
+    <span>${horas}h</span> : 
+    <span>${minutos}m</span> : 
+    <span>${segundos}s</span> 
+    <br> para abrir o presente 🎁
+  `;
+
+  setTimeout(atualizarContador, 1000);
 }
 
-iniciarContador();
+// Inicialmente só roda o contador — o presente só inicia depois do countdown zerar
+document.addEventListener("DOMContentLoaded", () => {
+  atualizarContador();
+});
+

@@ -8,6 +8,10 @@ body {
   overflow-x: hidden;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .container {
   background: rgba(0, 0, 0, 0.5);
   border-radius: 15px;
