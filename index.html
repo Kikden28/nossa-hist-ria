@@ -8,17 +8,13 @@
 </head>
 <body>
 
-  <!-- Contador regressivo -->
-  <div id="contador" class="contador">
-    <h2>Preparando uma surpresa para você...</h2>
-    <div id="tempo" class="tempo">00d 00h 00m 00s</div>
-    <p>para a surpresa ser revelada! ❤️</p>
-  </div>
+  <div class="container">
 
-  <!-- Conteúdo do presente -->
-  <div id="presente" class="container" style="display: none;">
-    <h1>Feliz 4 anos de namoro meu amorzinho</h1>
-    <div id="mensagem" class="mensagem"></div>
+    <div id="mensagem" class="mensagem">Aguarde seu presentinho, vida</div>
+
+    <div class="contador-wrapper">
+      <div id="contador" class="contador"></div>
+    </div>
 
     <div class="slide-wrapper">
       <div id="slide-container" class="slide-container"></div>
@@ -29,10 +25,46 @@
     <div id="legenda" class="legenda"></div>
 
     <button id="btnCurtir" title="Curtir">❤️ Curtir</button>
+
   </div>
 
   <div id="corações" class="corações"></div>
 
+  <!-- Script Contador Regressivo -->
+  <script>
+    const dataAlvo = new Date("2025-08-12T00:00:00").getTime();
+
+    function atualizarContador() {
+      const agora = new Date().getTime();
+      const distancia = dataAlvo - agora;
+
+      const contadorEl = document.getElementById("contador");
+
+      if (distancia < 0) {
+        contadorEl.innerHTML = "🎁 O presente está liberado!";
+        return;
+      }
+
+      const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+      const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+      contadorEl.innerHTML = `
+        <span>${dias}d</span> : 
+        <span>${horas}h</span> : 
+        <span>${minutos}m</span> : 
+        <span>${segundos}s</span> 
+        <br> para abrir o presente 🎁
+      `;
+
+      setTimeout(atualizarContador, 1000);
+    }
+
+    document.addEventListener("DOMContentLoaded", atualizarContador);
+  </script>
+
+  <!-- Scripts principais do projeto -->
   <script src="script.js"></script>
 </body>
 </html>

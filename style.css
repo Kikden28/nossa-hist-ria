@@ -31,6 +31,28 @@ h1 {
   margin-right: auto;
 }
 
+/*linha do contador */
+.contador-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 1.5rem auto;
+  max-width: 350px;
+}
+
+.contador {
+  background-color: rgba(255, 153, 204, 0.15);
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
+  font-size: 1.4rem;
+  color: #ffe4ec;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(255, 153, 204, 0.4);
+  text-shadow: 1px 1px 4px #000;
+}
+
+/*linha do contador */
+
 .slide-wrapper {
   position: relative;
   width: 100%;
