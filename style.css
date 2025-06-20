@@ -1,0 +1,140 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: url('img/fundo.jpg.webp') no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+.container {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 700px;
+}
+
+h1 {
+  color: #ff99cc;
+  margin-bottom: 1rem;
+}
+
+.mensagem {
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+}
+
+.slide-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 30px;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.slide-container {
+  display: flex;
+  transition: transform 0.8s ease;
+  width: 100%;
+  -webkit-user-select: none; /* Chrome, Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE 10+ */
+  user-select: none;
+}
+
+
+.slide-item {
+  min-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.slide-item img,
+.slide-item video {
+  max-width: 90%;
+  max-height: 280px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.slide-item video {
+  pointer-events: auto;
+}
+
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  font-size: 2rem;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s, transform 0.2s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  z-index: 10;
+}
+
+.nav:hover {
+  background-color: rgba(255, 153, 204, 0.7);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.nav.prev {
+  left: 10px;
+}
+
+.nav.next {
+  right: 10px;
+}
+
+.legenda {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: #ffe4ec;
+  text-shadow: 1px 1px 2px #000;
+  min-height: 1.5em;
+}
+
+.corações {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.coração {
+  position: absolute;
+  color: #ff99cc;
+  animation: flutuar 5s linear infinite;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@keyframes flutuar {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) scale(0.5);
+    opacity: 0;
+  }
+}
