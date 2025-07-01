@@ -8,6 +8,7 @@ const mensagens = [
   "Cada gargalhada tua me contagia <3",
   "A distância é minha inimiga, eu amo ficar do teu ladinho",
   "Penso em ti o dia inteiro, vidoca",
+  "As lembranças de quando a genta tava começando nossa história, são as melhores"
 ];
 
 const slides = [
@@ -124,9 +125,9 @@ document.getElementById('btnCurtir').addEventListener('click', (e) => {
 
 // Contador regressivo para 12 de agosto de 2025 00:00:00
 // ... seu código existente aqui (slides, mensagens, etc)
-
+// "2025-08-12T00:00:00" // hora do baam
 // Contador regressivo
-const dataAlvo = new Date("2025-08-12T00:00:00").getTime();
+const dataAlvo = new Date().getTime();
 
 function atualizarContador() {
   const agora = new Date().getTime();
