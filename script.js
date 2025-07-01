@@ -127,7 +127,7 @@ document.getElementById('btnCurtir').addEventListener('click', (e) => {
 // ... seu código existente aqui (slides, mensagens, etc)
 //  // hora do baam
 // Contador regressivo
-const dataAlvo = new Date("2025-08-12T00:00:00").getTime();
+const dataAlvo = new Date("2025-06-30T00:00:00").getTime();
 
 function atualizarContador() {
   const agora = new Date().getTime();
