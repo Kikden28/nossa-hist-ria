@@ -20,6 +20,9 @@ const slides = [
   { type: 'img', src: 'img/foto5.jpg.webp', legenda: 'Fiz isso com carinho pra vc, meu bem' },
   { type: 'img', src: 'img/foto7.jpg.webp', legenda: 'Essa foto ficou lindona ó' },
   { type: 'img', src: 'img/foto8.webp', legenda: 'Eu já disse que te amo? Eu te amo, vidoca' },
+  { type: 'img', src: 'img/foto1.jpg.webp', legenda: 'tu és um xuxu que colhi na vidaaaa' },
+  { type: 'img', src: 'img/foto10.webp', legenda: 'Não queria deixar essa data passar em branco' },
+  { type: 'img', src: 'img/foto12.jpg', legenda: 'a gente tá tão aura+++++ nessa aqui, slk ein' },
   { type: 'img', src: 'img/final.webp', legenda: 'Esse é meu presente pra vc, paixão' },
 ];
 
@@ -171,3 +174,24 @@ document.addEventListener("DOMContentLoaded", () => {
   atualizarContador();
 });
 
+const imagensFigurinhas = [
+  'img/cat.gif',
+  'img/cat.gif',
+  'img/cat.gif',
+  'img/cat.gif',
+  'img/cat.gif'
+];
+
+function criarFigurinhaImagem() {
+  const img = document.createElement('img');
+  img.src = imagensFigurinhas[Math.floor(Math.random() * imagensFigurinhas.length)];
+  img.className = 'figurinha-img';
+  img.style.left = Math.random() * 100 + 'vw';
+  img.style.top = "100vh";
+  img.style.animationDuration = (Math.random() * 4 + 3) + "s";
+  document.getElementById('figurinhas-fundo').appendChild(img);
+  setTimeout(() => img.remove(), 8000);
+}
+
+// Cria figurinhas flutuantes periodicamente
+setInterval(criarFigurinhaImagem, 2000);
