@@ -8,11 +8,14 @@ const mensagens = [
   "Cada gargalhada tua me contagia <3",
   "A distância é minha inimiga, eu amo ficar do teu ladinho",
   "Penso em ti o dia inteiro, vidoca",
-  "As lembranças de quando a genta tava começando nossa história, são as melhores"
+  "As lembranças de quando a genta tava começando nossa história, são as melhores",
+  "Teu sorriso ilumina meus dias. ☀️",
+  "Você é a razão do meu sorriso. 😊"
 ];
 
 const slides = [
   { type: 'img', src: 'img/foto6.jpg.webp', legenda: 'Cada fotinha é uma lembrança de felicidade ❤️' },
+  { type: 'img', src: 'img/foto2jpg.webp', legenda: 'Teu olhar é o meu refúgio, meu amor' },
   { type: 'video', src: 'videos.mp4/video3.mp4', legenda: 'Teu sorriso me alegra nesses dias escuros' },
   { type: 'img', src: 'img/foto3.jpg.webp', legenda: 'Eu aproveito cada momento do teu ladinho' },
   { type: 'video', src: 'videos.mp4/video2.mp4', legenda: 'Sempre vou te amar com todas as minhas forças 🥰' },
@@ -195,3 +198,48 @@ function criarFigurinhaImagem() {
 
 // Cria figurinhas flutuantes periodicamente
 setInterval(criarFigurinhaImagem, 2000);
+
+const fraseBlock = document.querySelector('.frases-reveladas');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      fraseBlock.classList.add('visible');
+    }
+  });
+});
+
+observer.observe(fraseBlock);
+
+// Música de fundo com autoplay bloqueado
+// A música só inicia quando o usuário interage com a página (scroll, click, touch
+const audio = document.getElementById('audioFundo');
+
+let iniciado = false;
+
+function iniciarMusica() {
+  if (!iniciado) {
+    iniciado = true;
+    audio.volume = 0;
+    audio.play().then(() => {
+      // Efeito fade-in gradual
+      let volume = 0;
+      const fade = setInterval(() => {
+        if (volume < 0.5) {
+          volume += 0.01;
+          audio.volume = volume;
+        } else {
+          clearInterval(fade);
+        }
+      }, 100); // sobe o volume suavemente em ~5 segundos
+    }).catch((e) => {
+      console.log("Autoplay bloqueado pelo navegador:", e);
+    });
+  }
+}
+
+// Dispara quando o usuário interagir com a página (clicar, tocar ou rolar)
+window.addEventListener('scroll', iniciarMusica);
+window.addEventListener('click', iniciarMusica);
+window.addEventListener('touchstart', iniciarMusica);
+

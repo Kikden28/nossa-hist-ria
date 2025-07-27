@@ -249,6 +249,26 @@ user-select: none;         /* padrão */
   opacity: 0.9;
 }
 
+.frases-reveladas {
+  margin: 60px auto 40px;
+  max-width: 600px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+  font-size: 1.2em;
+  color: #fa8080;
+  padding: 0 20px;
+  line-height: 1.6;
+}
+
+.frases-reveladas.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
 @keyframes flutuar {
   0% {
     transform: translateY(0) rotate(0deg);
