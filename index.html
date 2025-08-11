@@ -7,8 +7,6 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <audio id="audioFundo" src="musica.mp3/Damiano David - The First Time (Tradução_ Legendado) [1MxCEkLuLuA].mp3" loop></audio>
-
 
   <div class="contador-wrapper">
     <div id="contador" class="contador"></div>
@@ -54,5 +52,62 @@
   <div id="corações" class="corações"></div>
 
   <script src="script.js"></script>
+
+  <audio id="bg-music" loop>
+  <source src="musica.mp3/Damiano David - The First Time (Tradução_ Legendado) [1MxCEkLuLuA].mp3" type="audio/mpeg">
+  Seu navegador não suporta áudio.
+</audio>
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  const musica = document.getElementById("bg-music");
+
+  if (musica) {
+    musica.volume = 0;
+
+    musica.play().then(() => {
+      // Fade-in suave no desktop
+      fadeInVolume(musica);
+    }).catch(() => {
+      // Mobile: tocar ao primeiro clique
+      document.body.addEventListener("click", () => {
+        musica.play();
+        fadeInVolume(musica);
+      }, { once: true });
+    });
+  }
+
+  function fadeInVolume(musica) {
+    let vol = 0;
+    const fadeIn = setInterval(() => {
+      if (vol < 1) {
+        vol += 0.05;
+        musica.volume = vol;
+      } else {
+        clearInterval(fadeIn);
+      }
+    }, 200);
+  }
+});
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const music = document.getElementById('bg-music');
+
+    // Para começar com toque no celular
+    function startMusic() {
+        music.play().catch(err => console.log("Erro ao iniciar música:", err));
+        document.removeEventListener('click', startMusic);
+        document.removeEventListener('touchstart', startMusic);
+    }
+
+    // Captura o primeiro toque ou clique
+    document.addEventListener('click', startMusic);
+    document.addEventListener('touchstart', startMusic);
+});
+</script>
+
+
 </body>
 </html>

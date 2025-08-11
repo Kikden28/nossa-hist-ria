@@ -15,7 +15,7 @@ const mensagens = [
 
 const slides = [
   { type: 'img', src: 'img/foto6.jpg.webp', legenda: 'Cada fotinha é uma lembrança de felicidade ❤️' },
-  { type: 'img', src: 'img/foto2jpg.webp', legenda: 'Teu olhar é o meu refúgio, meu amor' },
+  { type: 'img', src: 'img/foto2.jpg.webp', legenda: 'Teu olhar é o meu refúgio, meu amor' },
   { type: 'video', src: 'videos.mp4/video3.mp4', legenda: 'Teu sorriso me alegra nesses dias escuros' },
   { type: 'img', src: 'img/foto3.jpg.webp', legenda: 'Eu aproveito cada momento do teu ladinho' },
   { type: 'video', src: 'videos.mp4/video2.mp4', legenda: 'Sempre vou te amar com todas as minhas forças 🥰' },
