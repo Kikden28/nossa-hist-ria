@@ -267,6 +267,30 @@ user-select: none;         /* padrão */
   transform: translateY(0);
 }
 
+.frases-reveladas {
+  position: relative;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 10px;
+  color: #fa8080;
+  line-height: 1.6;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Fundo preto com blur atrás do texto */
+.frases-reveladas::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* top, right, bottom, left = 0 */
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 10px;
+  z-index: -1;
+}
+
 
 
 @keyframes flutuar {
